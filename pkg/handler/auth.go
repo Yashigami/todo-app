@@ -7,13 +7,14 @@ import (
 	todo "todo-app"
 )
 
-func (h *Handler) signUp(c *gin.Context) {
+// Создание обработчиков
+func (h *Handler) signUp(c *gin.Context) { // Регистрация
 	log.Println("signUp endpoint hit")
 
 	var input todo.User
 
 	if err := c.BindJSON(&input); err != nil {
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		newErrorResponse(c, http.StatusBadRequest, err.Error()) // Вызов функции для ответа с ошибкой
 		return
 	}
 
@@ -32,7 +33,7 @@ type signInInput struct {
 	Password string `json:"password" binding:"required"`
 }
 
-func (h *Handler) signIn(c *gin.Context) {
+func (h *Handler) signIn(c *gin.Context) { // Аутентификация
 	log.Println("signIn endpoint hit")
 
 	var input signInInput
@@ -42,6 +43,7 @@ func (h *Handler) signIn(c *gin.Context) {
 		return
 	}
 
+	// Генерация токена с передачей логина и пароля
 	token, err := h.services.Authorization.GenerateToken(input.Username, input.Password)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())

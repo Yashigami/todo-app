@@ -13,24 +13,25 @@ func NewHandler(services *service.Service) *Handler {
 	return &Handler{services: services}
 }
 
+// Метод инициализирущий эндпоинты
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
 	auth := router.Group("/auth")
 	{
-		auth.POST("/sign-up", h.signUp)
-		auth.POST("/sign-in", h.signIn)
+		auth.POST("/sign-up", h.signUp) // Регистрация
+		auth.POST("/sign-in", h.signIn) // Авторизация
 	}
 
 	api := router.Group("/api", h.userIdentity)
 	{
-		lists := api.Group("/lists")
+		lists := api.Group("/lists") // Для работы со списками
 		{
-			lists.POST("/", h.createList)
-			lists.GET("/", h.getAllLists)
-			lists.GET("/:id", h.getListById)
-			lists.PUT("/:id", h.updateList)
-			lists.DELETE("/:id", h.deleteList)
+			lists.POST("/", h.createList)      // Создание списков
+			lists.GET("/", h.getAllLists)      // Получение списков
+			lists.GET("/:id", h.getListById)   // Получение списков по id
+			lists.PUT("/:id", h.updateList)    // Редактирование списков
+			lists.DELETE("/:id", h.deleteList) // Удаление списков
 
 			items := lists.Group(":id/items")
 			{

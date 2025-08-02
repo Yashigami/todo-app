@@ -7,6 +7,7 @@ import (
 	todo "todo-app"
 )
 
+// Создание эндпоинтов для работы с Items
 func (h *Handler) createItem(c *gin.Context) {
 	userId, err := getUserId(c)
 	if err != nil {

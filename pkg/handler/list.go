@@ -7,6 +7,7 @@ import (
 	todo "todo-app"
 )
 
+// Эндпоинты для работы со списками
 func (h *Handler) createList(c *gin.Context) {
 	userId, err := getUserId(c)
 	if err != nil {

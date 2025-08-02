@@ -5,6 +5,8 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+//	Реализация логика подключения к БД и хранение имен таблиц-констант
+
 const (
 	usersTable      = "users"
 	todoListsTable  = "todo_lists"
@@ -13,6 +15,7 @@ const (
 	listsItemsTable = "lists_items"
 )
 
+// Подключение к БД
 type Config struct {
 	Host     string
 	Port     string
@@ -22,6 +25,7 @@ type Config struct {
 	SSLMode  string
 }
 
+// Создание/Подключение к БД
 func NewPostgresDB(cfg Config) (*sqlx.DB, error) {
 	db, err := sqlx.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s",
 		cfg.Host, cfg.Port, cfg.UserName, cfg.DBName, cfg.Password, cfg.SSLMode))

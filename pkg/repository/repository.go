@@ -5,6 +5,8 @@ import (
 	todo "todo-app"
 )
 
+// Создание интерфейсов для сущностей Repository
+
 type Authorization interface {
 	CreateUser(user todo.User) (int, error)
 	GetUser(username, password string) (todo.User, error)
@@ -25,6 +27,9 @@ type TodoItem interface {
 	Delete(userId, itemId int) error
 	Update(userId, itemId int, input todo.UpdateItemInput) error
 }
+
+// Создание структуры сервисов - которая собирает сервисы в одном месте Repository
+
 type Repository struct {
 	Authorization
 	TodoList
